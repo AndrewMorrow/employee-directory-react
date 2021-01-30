@@ -19,7 +19,17 @@ const EmployeeState = () => {
     // Set Loading
     const setLoading = () => dispatch({ type: SET_LOADING });
 
-    return <div></div>;
+    return (
+        <EmployeeContext.Provider
+            value={{
+                employees: state.employees,
+                employee: state.employee,
+                loading: state.loading,
+            }}
+        >
+            {props.children}
+        </EmployeeContext.Provider>
+    );
 };
 
 export default EmployeeState;
