@@ -18,11 +18,7 @@ export default (state, action) => {
                 ...state,
                 filtered: state.employees.filter((employee) => {
                     const regex = new RegExp(`${action.payload}`, "gi");
-                    return (
-                        employee.name.first.match(regex) ||
-                        employee.name.last.match(regex) ||
-                        employee.email.match(regex)
-                    );
+                    return employee.email.match(regex);
                 }),
             };
         case SET_LOADING:

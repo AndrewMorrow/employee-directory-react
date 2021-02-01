@@ -1,5 +1,6 @@
 import React from "react";
 import employeeReducer from "../../context/employee/employeeReducer";
+import PropTypes from "prop-types";
 
 const EmployeeItem = ({ employee }) => {
     return (
@@ -23,6 +24,10 @@ const EmployeeItem = ({ employee }) => {
             </div>
         </div>
     );
+};
+
+EmployeeItem.propTypes = {
+    employee: PropTypes.object.isRequired,
 };
 
 export default EmployeeItem;

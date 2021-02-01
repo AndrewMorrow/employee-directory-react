@@ -1,38 +1,31 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import EmployeeContext from "../../context/employee/employeeContext";
 
 const Searchbar = () => {
     const employeeContext = useContext(EmployeeContext);
     const { clearFilter, filterEmployees, filtered } = employeeContext;
-    const [text, setText] = useState("");
+    // const [text, setText] = useState("");
+    const text = useRef("");
 
     // useEffect(() => {
+    //     // console.log(text);
     //     if (filtered === null) {
-    //         setText("");
+    //         // setText("");
+    //         text.current.value = "";
     //     }
     // }, []);
 
-    // const onChange = (e) => {
-    //     setText(e.target.value);
-    //     console.log(text);
-    //     if (text !== "") {
-    //         filterEmployees(e.target.value);
-    //     } else {
-    //         // clearFilter();
-    //         console.log("Clear");
-    //     }
-    // };
+    const onChange = (e) => {
+        if (text.current.value !== "") {
+            console.log("Fire filter employees");
+            filterEmployees(e.target.value);
+        } else {
+            // clearFilter();
+            console.log("Clear");
+        }
+    };
 
-    const onChange = (e) => setText(e.target.value);
-
-    // const onSubmit = (e) => {
-    //     e.preventDefault();
-    //     if (text === "") {
-    //         alert("Please enter something to search employees");
-    //     } else {
-    //         filterEmployees(text);
-    //     }
-    // };
+    // const onChange = (e) => setText(e.target.value);
 
     return (
         <form className="d-flex justify-content-center mb-2">
@@ -40,7 +33,7 @@ const Searchbar = () => {
                 type="text"
                 name="text"
                 placeholder="Search Employees..."
-                value={text}
+                ref={text}
                 onChange={onChange}
             />
         </form>

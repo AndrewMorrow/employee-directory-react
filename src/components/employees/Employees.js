@@ -9,31 +9,38 @@ const Employees = () => {
     const { getEmployees, employees, loading, filtered } = employeeContext;
 
     useEffect(() => {
+        console.log("Getting employees");
         getEmployees();
         // eslint-disable-next-line
     }, []);
 
-    if (loading) {
-        return <Spinner />;
-    } else {
-        return (
-            <div>
-                {filtered !== null
-                    ? filtered.map((employee) => (
-                          <EmployeeItem
-                              key={employee.login.uuid}
-                              employee={employee}
-                          />
-                      ))
-                    : employees.map((employee) => (
-                          <EmployeeItem
-                              key={employee.login.uuid}
-                              employee={employee}
-                          />
-                      ))}
-            </div>
-        );
+    if (employees !== null && employees.length === 0 && !loading) {
+        return <h4>No employees to display</h4>;
     }
+
+    return (
+        <div>
+            {employees !== null && !loading ? (
+                <>
+                    {filtered !== null
+                        ? filtered.map((employee) => (
+                              <EmployeeItem
+                                  key={employee.login.uuid}
+                                  employee={employee}
+                              />
+                          ))
+                        : employees.map((employee) => (
+                              <EmployeeItem
+                                  key={employee.login.uuid}
+                                  employee={employee}
+                              />
+                          ))}
+                </>
+            ) : (
+                <Spinner />
+            )}
+        </div>
+    );
 };
 
 export default Employees;

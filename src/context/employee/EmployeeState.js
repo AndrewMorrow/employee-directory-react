@@ -33,6 +33,7 @@ const EmployeeState = (props) => {
 
     // Search Employees with input field
     const filterEmployees = (text) => {
+        console.log(text);
         dispatch({ type: FILTER_EMPLOYEES, payload: text });
     };
 
@@ -54,6 +55,7 @@ const EmployeeState = (props) => {
                 getEmployees,
                 filterEmployees,
                 clearFilter,
+                setLoading,
             }}
         >
             {props.children}
