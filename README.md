@@ -23,6 +23,8 @@ This app will be deployed to heroku where it is fully functional without any ins
 
 The app can be used by filtering the employees with the search bar or sorting the employees by clicking the caret next to the name or date of birth fields.
 
+Deployed Link: https://employee-directory-react-36203.herokuapp.com/
+
 <img src="assets/images/employeeDirectorySS.png">
 
 ## License
