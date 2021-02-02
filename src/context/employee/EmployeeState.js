@@ -45,6 +45,7 @@ const EmployeeState = (props) => {
 
     // Sort employees name
     const sortEmployeesName = (bool) => {
+        let sortedName;
         const sortNames = (a, b) => {
             const nameA = a.name.last.toUpperCase();
             const nameB = b.name.last.toUpperCase();
@@ -61,13 +62,18 @@ const EmployeeState = (props) => {
             }
         };
 
-        const sortedName = state.employees.sort(sortNames);
+        if (state.filtered === null) {
+            sortedName = state.employees.sort(sortNames);
+        } else {
+            sortedName = state.filtered.sort(sortNames);
+        }
 
         dispatch({ type: SORT_EMPLOYEESNAME, payload: sortedName });
     };
 
     // Sort Employees by DOB
     const sortEmployeesDOB = (bool) => {
+        let sortedAge;
         const sortAge = (a, b) => {
             const nameA = a.dob.age;
             const nameB = b.dob.age;
@@ -84,7 +90,11 @@ const EmployeeState = (props) => {
             }
         };
 
-        const sortedAge = state.employees.sort(sortAge);
+        if (state.filtered === null) {
+            sortedAge = state.employees.sort(sortAge);
+        } else {
+            sortedAge = state.filtered.sort(sortAge);
+        }
 
         dispatch({ type: SORT_EMPLOYEESDOB, payload: sortedAge });
     };
