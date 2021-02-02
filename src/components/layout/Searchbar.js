@@ -17,11 +17,9 @@ const Searchbar = () => {
 
     const onChange = (e) => {
         if (text.current.value !== "") {
-            console.log("Fire filter employees");
             filterEmployees(e.target.value);
         } else {
-            // clearFilter();
-            console.log("Clear");
+            clearFilter();
         }
     };
 

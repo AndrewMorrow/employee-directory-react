@@ -9,7 +9,6 @@ const Employees = () => {
     const { getEmployees, employees, loading, filtered } = employeeContext;
 
     useEffect(() => {
-        console.log("Getting employees");
         getEmployees();
         // eslint-disable-next-line
     }, []);

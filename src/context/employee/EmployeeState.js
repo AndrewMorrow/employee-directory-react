@@ -6,6 +6,10 @@ import {
     FILTER_EMPLOYEES,
     SET_LOADING,
     CLEAR_FILTER,
+    SORT_EMPLOYEESDOB,
+    SORT_EMPLOYEESNAME,
+    SET_SORTEDDOB,
+    SET_SORTEDNAME,
 } from "../types";
 
 const EmployeeState = (props) => {
@@ -14,6 +18,8 @@ const EmployeeState = (props) => {
         employee: {},
         loading: false,
         filtered: null,
+        sortedName: null,
+        sortedDOB: null,
     };
 
     const [state, dispatch] = useReducer(EmployeeReducer, initialState);
@@ -33,8 +39,54 @@ const EmployeeState = (props) => {
 
     // Search Employees with input field
     const filterEmployees = (text) => {
-        console.log(text);
+        // console.log(text);
         dispatch({ type: FILTER_EMPLOYEES, payload: text });
+    };
+
+    // Sort employees name
+    const sortEmployeesName = (bool) => {
+        const sortNames = (a, b) => {
+            const nameA = a.name.last.toUpperCase();
+            const nameB = b.name.last.toUpperCase();
+            let comparison = 0;
+            if (nameA > nameB) {
+                comparison = 1;
+            } else if (nameA < nameB) {
+                comparison = -1;
+            }
+            if (bool) {
+                return comparison;
+            } else if (!bool) {
+                return comparison * -1;
+            }
+        };
+
+        const sortedName = state.employees.sort(sortNames);
+
+        dispatch({ type: SORT_EMPLOYEESNAME, payload: sortedName });
+    };
+
+    // Sort Employees by DOB
+    const sortEmployeesDOB = (bool) => {
+        const sortAge = (a, b) => {
+            const nameA = a.dob.age;
+            const nameB = b.dob.age;
+            let comparison = 0;
+            if (nameA > nameB) {
+                comparison = 1;
+            } else if (nameA < nameB) {
+                comparison = -1;
+            }
+            if (bool) {
+                return comparison;
+            } else if (!bool) {
+                return comparison * -1;
+            }
+        };
+
+        const sortedAge = state.employees.sort(sortAge);
+
+        dispatch({ type: SORT_EMPLOYEESDOB, payload: sortedAge });
     };
 
     // Set Loading
@@ -45,6 +97,16 @@ const EmployeeState = (props) => {
         dispatch({ type: CLEAR_FILTER });
     };
 
+    // Set sortedName
+    const setSortedName = () => {
+        dispatch({ type: SET_SORTEDNAME });
+    };
+
+    // Set sortedDOB
+    const setSortedDOB = () => {
+        dispatch({ type: SET_SORTEDDOB });
+    };
+
     return (
         <EmployeeContext.Provider
             value={{
@@ -52,10 +114,16 @@ const EmployeeState = (props) => {
                 employee: state.employee,
                 loading: state.loading,
                 filtered: state.filtered,
+                sortedName: state.sortedName,
                 getEmployees,
                 filterEmployees,
                 clearFilter,
                 setLoading,
+                setSortedName,
+                setSortedDOB,
+                sortEmployeesDOB,
+                sortEmployeesName,
+                sortedDOB: state.sortedDOB,
             }}
         >
             {props.children}
